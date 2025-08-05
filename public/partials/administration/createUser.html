@@ -1,0 +1,27 @@
+<!-- partials/createUser.html -->
+<div class="p-6 space-y-4 w-full max-w-4xl mx-auto h-[90vh] overflow-y-auto">
+  <h2 class="text-xl font-bold mb-4 text-blue-800">Create New User</h2>
+  <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <input type="text" placeholder="Full Name" class="border border-blue-500 focus:outline-none focus:border-yellow-500 bg-yellow-50 rounded-md px-3 py-2" />
+    <input type="text" placeholder="Username" class="border border-blue-500 focus:outline-none focus:border-yellow-500 bg-yellow-50 rounded-md px-3 py-2" />
+    <input type="email" placeholder="Email Address" class="border border-blue-500 focus:outline-none focus:border-yellow-500 bg-yellow-50 rounded-md px-3 py-2" />
+    <input type="password" placeholder="Password" class="border border-blue-500 focus:outline-none focus:border-yellow-500 bg-yellow-50 rounded-md px-3 py-2" />
+    
+    <select class="border border-blue-500 focus:outline-none focus:border-yellow-500 bg-yellow-50 rounded-md px-3 py-2">
+      <option>User Role</option>
+      <option>Admin</option>
+      <option>Manager</option>
+      <option>Clerk</option>
+    </select>
+
+    <select class="border border-blue-500 focus:outline-none focus:border-yellow-500 bg-yellow-50 rounded-md px-3 py-2">
+      <option>Status</option>
+      <option>Active</option>
+      <option>Inactive</option>
+    </select>
+
+    <div class="col-span-full flex justify-end space-x-4 mt-4">
+      <button type="submit" class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700">Submit</button>
+    </div>
+  </form>
+</div>

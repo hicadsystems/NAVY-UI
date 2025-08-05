@@ -5,20 +5,45 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard</title>
-  <script defer src="dashboard.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100 min-h-screen">
+<style>
+  @media (max-width: 450px) {
+    html{
+      font-size: 80% !important;
+    }
+    
+    .p-6 {
+      padding: 0.5rem !important;
+    }
+  }
+
+</style>
+<body class="bg-gradient-to-br from-yellow-50 to-blue-100 min-h-screen">
   <div class="max-w-7xl mx-auto p-6">
-    <header class="flex items-center justify-between mb-6">
-      <h1 class="text-2xl font-bold">Company Name</h1>
-      <div class="text-sm text-gray-600">Company Logo</div>
+    <header class="flex items-center justify-between mb-6 border-b pb-4">
+      <h1 class="text-3xl font-extrabold text-blue-800 tracking-wide">HICAD</h1>
+      <img src="photos/logo.png" alt="Company Logo" class="w-16 h-16 object-contain" />
     </header>
 
-    <div id="menu" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6"></div>
+    <div id="menu" class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+      <!-- Cards injected by JS -->
+    </div>
 
-    <div id="sections">
+    <div class="mb-4 hidden" id="back-button-wrapper">
+      <button id="back-button" style="margin-top: 7%;" class="bg-yellow-400 text-white px-4 py-2 rounded-md hover:bg-red-600">← Return</button>
+    </div>
+
+    <div id="sections" class="hidden">
       <!-- Dynamic section content will be injected here -->
+    </div>
+
+    <!-- Modal Template -->
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+      <div class="w-full max-w-4xl h-[90vh] overflow-y-auto p-6 bg-white rounded-xl shadow-lg relative">
+        <button id="close-modal" class="absolute top-2 right-3 text-gray-500 hover:text-red-500 font-bold">&times;</button>
+        <div id="modal-content"></div>
+      </div>
     </div>
   </div>
 </body>
