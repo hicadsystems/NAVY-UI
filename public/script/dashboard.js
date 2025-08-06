@@ -5,6 +5,8 @@ const menuItems = {
     'Control User',
     'Close/Open Payroll Period',
     'Payroll Class Setup',
+    'Change Payroll Class',
+    'Change Registration Number',
     'Company Profile',
     'Monthly and Yearly Processing'
   ],
@@ -33,25 +35,61 @@ const menuItems = {
     'Calculations'
   ],
   'Reference Tables': [
-    'General Tables',
-    'Tax Tables',
-    'Allowances',
-    'Deductions'
+    'Overtime Information',
+    'Command',
+    'Operative Information',
+    'Cash Payment',
+    'Tax Table Information',
+    'Salary Scale Information',
+    'Pay Element Description',
+    'Fixed Amount By Bank',
+    'Bank Details',
+    'Department',
+    'State',
+    'Local Government',
+    'Pension Fund Administrator',
+    'Reports'
   ],
   'Utilities': [
-    'System Preferences',
-    'Import/Export',
-    'User Logs'
+    'Irregular One-Off Payments',
+    'Mutually Exclusive PayElements',
+    'Emolumen Form Interface',
+    'Adhoc/Temporary Works',
+    'Pull IPPIS Data',
+    'SMS/Consolidated PaySlip',
+    'Arrears Calculations',
+    'Arrears Calculations 2'
   ],
   'Reports': [
-    'Payroll Summary',
-    'Payment Slips',
-    'Audit Trail',
-    'Custom Reports'
+    'Pay Slips',
+    'Payment By Bank(Branch)',
+    'Analysis Of Earnings & Deductions',
+    'Loan Analysis',
+    'Analysis of Payments/Deductions By BANK',
+    'Tax Payments By State',
+    'Payroll Registers',
+    'Salary History',
+    'payment Staff List',
+    'Payment statistics',
+    'Pension Fund Scheme',
+    'Control Sheet or journals',
+    'Salary Reconciliation',
+    'National Housing Fund',
+    'List of Exited members'
+  ],
+  'Audit Trail': [
+    'Salary Variance Analysis',
+    'Variation Within The Month',
+    'OverPayment',
+    'Duplicate A/C Numbers',
+    'Variation On Journal',
+    'Out Of Range Payments',
+    'Head Quater Request'
   ]
 };
 
 const menuContainer = document.getElementById('menu');
+const welcomeMessage = document.getElementById('welcome-message');
 const sectionsContainer = document.getElementById('sections');
 const backBtnWrapper = document.getElementById('back-button-wrapper');
 const backBtn = document.getElementById('back-button');
@@ -76,6 +114,7 @@ window.cancelToCurrentSection = function() {
 window.showSection = function (title) {
   menuContainer.classList.add('hidden');
   backBtnWrapper.classList.remove('hidden');
+  welcomeMessage.classList.add('hidden');
 
   sectionsContainer.innerHTML = '';
   const container = document.createElement('div');
@@ -180,7 +219,7 @@ function openPage(section, page) {
           modalContent.innerHTML = html;
 
           const script = document.createElement('script');
-          script.src = 'scripts/administration/createUser.js';
+          script.src = 'script/administration/createUser.js';
           document.body.appendChild(script);
         });
       return;
@@ -195,17 +234,13 @@ function openPage(section, page) {
   sectionsContainer.appendChild(backBtnWrapper);
 }
 
-function toggleStep(step) {
-  document.getElementById('step1').classList.toggle('hidden', step !== 1);
-  document.getElementById('step2').classList.toggle('hidden', step !== 2);
-}
-
 closeModal.addEventListener('click', () => {
   modal.classList.add('hidden');
 });
 
 backBtn.addEventListener('click', () => {
   menuContainer.classList.remove('hidden');
+  welcomeMessage.classList.remove('hidden');
   sectionsContainer.classList.add('hidden');
   backBtnWrapper.classList.add('hidden');
 });
