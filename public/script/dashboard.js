@@ -23,7 +23,7 @@ const menuItems = {
     'Arrears Calculation'
   ],
   'File Update': [
-    'Save Payroll Class',
+    'Save Payroll Files',
     'Input Variable Report',
     'Changes in Personnel Data',
     'Master File Update',
@@ -53,7 +53,7 @@ const menuItems = {
   'Utilities': [
     'Irregular One-Off Payments',
     'Mutually Exclusive PayElements',
-    'Emolumen Form Interface',
+    'Emolument Form Interface',
     'Adhoc/Temporary Works',
     'Pull IPPIS Data',
     'SMS/Consolidated PaySlip',
@@ -72,7 +72,7 @@ const menuItems = {
     'payment Staff List',
     'Payment statistics',
     'Pension Fund Scheme',
-    'Control Sheet or journals',
+    'Control Sheet or Journals',
     'Salary Reconciliation',
     'National Housing Fund',
     'List of Exited members'
@@ -84,7 +84,7 @@ const menuItems = {
     'Duplicate A/C Numbers',
     'Variation On Journal',
     'Out Of Range Payments',
-    'Head Quater Request'
+    'Head Quarter Request'
   ]
 };
 
@@ -95,6 +95,7 @@ const backBtnWrapper = document.getElementById('back-button-wrapper');
 const backBtn = document.getElementById('back-button');
 const modal = document.getElementById('modal');
 const modalContent = document.getElementById('modal-content');
+const modalInner = document.querySelector(".modal-inner");
 const closeModal = document.getElementById('close-modal');
 
 Object.keys(menuItems).forEach((item) => {
@@ -146,6 +147,58 @@ window.showSection = function (title) {
 
   sectionsContainer.appendChild(backBtnWrapper);
 }
+
+  function openModal(contentHtml) {
+     const modal = document.getElementById("modal");
+  const modalContent = document.getElementById("modal-content");
+  
+  // Inject content
+  modalContent.innerHTML = contentHtml;
+  
+  // Look for an existing submit button (fixed selector)
+  let submitBtn = modalContent.querySelector('button[type="submit"], .save-btn');
+  
+  if (!submitBtn) {
+    // If no submit found, create default buttons
+    const footer = document.createElement('div');
+    footer.className = "flex justify-end gap-4 mt-6";
+    
+    // Create cancel button
+    const cancelBtn = document.createElement('button');
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.className = 'bg-gray-400 text-white px-6 py-2 rounded hover:bg-gray-500';
+    cancelBtn.addEventListener('click', closeModalFunction);
+    
+    // Create submit button
+    submitBtn = document.createElement('button');
+    submitBtn.textContent = 'Save';
+    submitBtn.className = 'bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 save-btn';
+    submitBtn.type = 'submit';
+    
+    // Add both buttons to footer
+    footer.appendChild(cancelBtn);
+    footer.appendChild(submitBtn);
+    modalContent.appendChild(footer);
+  } else {
+    // If submit button exists, add cancel button if it doesn't exist
+    const parentContainer = submitBtn.parentNode;
+    const existingCancel = parentContainer.querySelector('button:has-text("Cancel")') || 
+                          parentContainer.querySelector('button[class*="cancel"]');
+    
+    if (!existingCancel && parentContainer) {
+      const cancelBtn = document.createElement('button');
+      cancelBtn.textContent = 'Cancel';
+      cancelBtn.className = 'bg-gray-400 text-white px-6 py-2 rounded hover:bg-gray-500';
+      cancelBtn.addEventListener('click', closeModalFunction);
+      
+      // Insert cancel before submit
+      parentContainer.insertBefore(cancelBtn, submitBtn);
+    }
+  }
+
+    modal.classList.remove("hidden");
+    modalInner.classList.add("animate-fade-up");
+  }
 
 function openPage(section, page) {
   const inlineSections = [
@@ -210,9 +263,9 @@ function openPage(section, page) {
         </div>
       </div>`;
   } else {
-    modal.classList.remove('hidden');
+    openModal();
     if (section === 'Administration' && page === 'Create User') {
-      modal.classList.remove('hidden');
+      openModal();
       fetch('partials/administration/createUser.html')
         .then(res => res.text())
         .then(html => {
@@ -234,9 +287,12 @@ function openPage(section, page) {
   sectionsContainer.appendChild(backBtnWrapper);
 }
 
-closeModal.addEventListener('click', () => {
-  modal.classList.add('hidden');
-});
+  function closeModalFunction() {
+    modal.classList.add("hidden");
+    modalInner.classList.remove("animate-fade-up");
+  }
+
+closeModal.addEventListener('click', closeModalFunction);
 
 backBtn.addEventListener('click', () => {
   menuContainer.classList.remove('hidden');
